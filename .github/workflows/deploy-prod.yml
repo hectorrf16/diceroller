@@ -1,32 +1,28 @@
-name: Deploy Web App
+name: Deploy to Production
 
 on:
   push:
-    branches: [ "main" ]
-  workflow_dispatch:
+    branches: [main]
 
 jobs:
-  build-and-deploy:
+  deploy-prod:
     runs-on: ubuntu-latest
     environment: production
     permissions:
       contents: write
-
+    
     steps:
-    - name: Checkout repository
+    - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20'
-        cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build web app
+    - name: Install and build
       run: |
+        npm install
         npm install -g expo-cli
         npx expo export:web
 
@@ -35,4 +31,3 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./web-build
-        keep_files: false
