@@ -1,10 +1,15 @@
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "./public/index.html"
+    "./App.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+    "./assets/**/*.svg"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'dice-primary': '#f59e0b',
+      }
+    },
   },
   plugins: [],
 }
