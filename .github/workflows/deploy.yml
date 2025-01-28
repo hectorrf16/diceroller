@@ -1,60 +1,23 @@
-name: Dev to Prod Pipeline
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [dev]
-  workflow_dispatch:
+    branches: [ main ]
 
 jobs:
-  build-verify:
-    name: Build and Verify
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment: development
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        ref: dev
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build web app
-      run: |
-        npm install -g expo-cli
-        npx expo export:web
-
-    - name: Run tests
-      run: echo "Add your test commands here"
-
-  create-prod-pr:
-    name: Create Production PR
-    needs: build-verify
-    runs-on: ubuntu-latest
-    environment: staging
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        ref: dev
-
-    - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: "chore: Promote build to production"
-        title: "PROD Release: $(date +'%Y-%m-%d %H:%M')"
-        body: "Automated production release from dev branch"
-        labels: "production,automated-pr"
-        base: main
-        head: dev
-        delete-branch: false
-        draft: false
-        team-reviewers: |
-          your-team-name
+      - uses: actions/checkout@v2
+      
+      - name: Install Dependencies
+        run: npm install
+        
+      - name: Build
+        run: npm run build
+        
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages
+          folder: build
