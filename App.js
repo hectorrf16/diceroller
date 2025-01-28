@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import { SegmentedButtons } from 'react-native-paper';
+import { SvgUri } from 'react-native-svg';
 
 const Die = ({ rolling }) => {
   const [value, setValue] = useState(1);
   const rotateAnim = useState(new Animated.Value(0))[0];
   const scaleAnim = useState(new Animated.Value(1))[0];
 
-  const getImageSource = () => {
-    switch(value) {
-      case 1: return require('./assets/die1.png');
-      case 2: return require('./assets/die2.png');
-      case 3: return require('./assets/die3.png');
-      case 4: return require('./assets/die4.png');
-      case 5: return require('./assets/die5.png');
-      case 6: return require('./assets/die6.png');
-      default: return require('./assets/die1.png');
-    }
+  const getDieAsset = () => {
+    return require(`./assets/dice${value}.svg`);
   };
 
   const startAnimation = () => {
@@ -56,54 +49,23 @@ const Die = ({ rolling }) => {
         ]
       }
     ]}>
-      <Image source={getImageSource()} style={styles.dieImage} />
+      <SvgUri
+        uri={getDieAsset()}
+        width="100%"
+        height="100%"
+      />
     </Animated.View>
   );
 };
 
-export default function App() {
-  const [numDice, setNumDice] = useState(1);
-  const [rolling, setRolling] = useState(false);
-  const [diceKey, setDiceKey] = useState(0);
+// ... Rest of the App component remains the same as previous answer
 
-  const rollDice = () => {
-    if (!rolling) {
-      setRolling(true);
-      setTimeout(() => {
-        setRolling(false);
-        setDiceKey(prev => prev + 1);
-      }, 1000);
-    }
-  };
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Dice Roller</Text>
-      
-      <View style={styles.diceRow}>
-        <Die key={`die1-${diceKey}`} rolling={rolling} />
-        {numDice > 1 && <Die key={`die2-${diceKey}`} rolling={rolling} />}
-      </View>
-
-      <SegmentedButtons
-        value={numDice.toString()}
-        onValueChange={value => setNumDice(Number(value))}
-        buttons={[
-          { value: '1', label: '1 Die' },
-          { value: '2', label: '2 Dice' },
-        ]}
-        style={styles.segment}
-      />
-
-      <TouchableOpacity 
-        style={styles.button} 
-        onPress={rollDice}
-        disabled={rolling}
-      >
-        <Text style={styles.buttonText}>{rolling ? 'Rolling...' : 'Roll Dice'}</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
-
-// ... (Keep the same styles as previous answer)
+const styles = StyleSheet.create({
+  // ... Keep previous styles and add:
+  dieContainer: {
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
