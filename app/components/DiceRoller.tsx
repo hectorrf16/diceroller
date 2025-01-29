@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 // Import your SVG files
-import Dice1 from '../assets/dice1.svg';
-import Dice2 from '../assets/dice2.svg';
-import Dice3 from '../assets/dice3.svg';
-import Dice4 from '../assets/dice4.svg';
-import Dice5 from '../assets/dice5.svg';
-import Dice6 from '../assets/dice6.svg';
+import Dice1 from '../../assets/dice1.svg';
+import Dice2 from '../../assets/dice2.svg';
+import Dice3 from '../../assets/dice3.svg';
+import Dice4 from '../../assets/dice4.svg';
+import Dice5 from '../../assets/dice5.svg';
+import Dice6 from '../../assets/dice6.svg';
 
 // Store the imported SVGs in an array
 const diceFaces = [Dice1, Dice2, Dice3, Dice4, Dice5, Dice6];
