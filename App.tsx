@@ -1,25 +1,50 @@
 // App.tsx
 import React from 'react';
-import { SafeAreaView, Platform } from 'react-native';
+import { SafeAreaView, Platform, View, StyleSheet } from 'react-native';
 import DiceRoller from './components/DiceRoller';
 
-// Web-specific styling (optional)
-const webStyles = Platform.select({
-  web: {
-    container: {
-      height: '100vh',
-      width: '100vw',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
+// Type for platform-specific styling
+type Styles = {
+  container: {
+    flex: number;
+    justifyContent: 'center';
+    alignItems: 'center';
+    height?: string;
+    width?: string;
+  };
+};
+
+const styles = StyleSheet.create<Styles>({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // Web-specific styles
+    ...Platform.select({
+      web: {
+        height: '100vh',
+        width: '100vw',
+      },
+      default: {
+        // Mobile-specific styles if needed
+      }
+    })
   },
-  default: {},
 });
 
 const App = () => {
+  // Use regular View for web platform
+  if (Platform.OS === 'web') {
+    return (
+      <View style={styles.container}>
+        <DiceRoller />
+      </View>
+    );
+  }
+
+  // Use SafeAreaView for mobile platforms
   return (
-    <SafeAreaView style={{ flex: 1, ...webStyles.container }}>
+    <SafeAreaView style={styles.container}>
       <DiceRoller />
     </SafeAreaView>
   );

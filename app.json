@@ -18,9 +18,10 @@
       }
     },
     "web": {
-      "bundler": "webpack",
+      "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "entryPoint": "./index.web.tsx"
     },
     "plugins": [
       "expo-router",

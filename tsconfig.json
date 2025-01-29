@@ -2,12 +2,22 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    // Add JSX support for React Native
+    "jsx": "react-native",
+    // Additional recommended React Native options
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext"],
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    // Keep your existing path alias
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
+  // Keep your existing include patterns
   "include": [
     "**/*.ts",
     "**/*.tsx",
