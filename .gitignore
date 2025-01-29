@@ -5,9 +5,9 @@ node_modules/
 
 # Expo
 .expo/
-# dist/
-dist/_expo/static/js/android/
-dist/_expo/static/js/ios/
+dist/
+# dist/_expo/static/js/android/
+# dist/_expo/static/js/ios/
 web-build/
 expo-env.d.ts
 
