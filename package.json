@@ -1,9 +1,6 @@
 {
   "name": "diceroller",
-  "main": "App.tsx",
-  "expo": {
-    "entrypoint": "App.tsx"
-  },
+  "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
     "start": "npx expo start",
